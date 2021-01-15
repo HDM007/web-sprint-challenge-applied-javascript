@@ -83,7 +83,7 @@ const cardAppender = (selector) => {
       //for (let j = 0; j < articlesArrays[i].length; j++){
         //console.log(j)
       //}
-    }
+    } 
 
 
 
