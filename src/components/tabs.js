@@ -47,10 +47,8 @@ const tabsAppender = (selector) => {
   const targetLocation = document.querySelector(selector)
   axios.get(`https://lambda-times-api.herokuapp.com/topics`).then((res) => {
     const topics = res.data.topics
-    console.log(topics)
     const topicClean = Tabs(topics)
     //targetLocation.appendChild()
-    console.log(topicClean)
   }).catch(console.log("No data received!"))
 
 
