@@ -1,3 +1,7 @@
+import axios from "axios";
+
+const container = document.querySelector(".cards-container")
+
 const Card = (article) => {
   // TASK 5
   // ---------------------
@@ -17,6 +21,36 @@ const Card = (article) => {
   //   </div>
   // </div>
   //
+
+
+  const articleCard = document.createElement("div")
+  articleCard.classList.add("card")
+
+  const articleHeadline = document.createElement("div")
+  articleHeadline.classList.add("headline")
+  articleHeadline.textContent = article.headline
+
+  const articleAuthor = document.createElement("div")
+  articleAuthor.classList.add("author")
+
+  const articleImageDiv = document.createElement("div")
+  articleImageDiv.classList.add("img-container")
+
+  const articleImg = document.createElement("img")
+  articleImg.src = article.authorPhoto
+
+  const articleAuthorSpan = document.createElement("span")
+  articleAuthorSpan.textContent = article.authorName
+
+
+  articleCard.appendChild(articleHeadline)
+  articleCard.appendChild(articleAuthor)
+  articleAuthor.appendChild(articleImageDiv)
+  articleImageDiv.appendChild(articleImg)
+  articleCard.appendChild(articleAuthorSpan)
+
+  return articleCard
+
 }
 
 const cardAppender = (selector) => {
@@ -28,6 +62,33 @@ const cardAppender = (selector) => {
   // Create a card from each and every article object in the response, using the Card component.
   // Append each card to the element in the DOM that matches the selector passed to the function.
   //
+  const targetLocation = document.querySelector(selector)
+
+  axios.get(`https://lambda-times-api.herokuapp.com/articles`).then((res) => {
+    //console.log(res)
+    const data = res.data.articles
+
+    const articlesArrays = [data.javascript, data.bootstrap, data.technology,data.jquery, data.node]
+
+    console.log(articlesArrays)
+
+    for (let i = 0; i< articlesArrays.length; i++){
+      console.log(i)
+      for (let j = 0; j < articlesArrays[i].length; j++){
+        console.log(j)
+        const card = Card(articlesArrays[i][j])
+        targetLocation.appendChild(card)
+
+      }
+      //for (let j = 0; j < articlesArrays[i].length; j++){
+        //console.log(j)
+      //}
+    } 
+
+
+
+  }).catch(console.log("no data received!"))
+
 }
 
 export { Card, cardAppender }
